@@ -1,18 +1,62 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ittoo</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ittoo - Tatuagens</title>
 <style>
-body{background:#000;color:#fff;font-family:Arial;display:flex;align-items:center;justify-content:center;height:100vh;margin:0;flex-direction:column}
-h1{font-size:60px;margin:0}
-p{color:#aaa}
-button{background:#a855f7;color:#fff;border:0;padding:20px 40px;border-radius:30px;font-size:18px;font-weight:bold;margin-top:20px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:sans-serif}
+body{background:#0a0a0a;color:#fff}
+.header{padding:20px;display:flex;justify-content:space-between;align-items:center}
+.logo{font-weight:900;font-size:26px}.logo span{color:#ff2a6d}
+.search{background:#1a1a1a;border-radius:20px;padding:12px 16px;display:flex;gap:10px;margin:0 20px}
+.search input{background:transparent;border:none;color:#fff;width:100%;outline:none}
+.artistas{padding:20px}
+.titulo{font-size:18px;font-weight:700;margin:15px 0}
+.card{background:#151515;border-radius:20px;padding:15px;display:flex;gap:15px;margin-bottom:15px}
+.foto{width:65px;height:65px;border-radius:50%}
+.nome{font-weight:700}
+.espec{color:#888;font-size:13px;margin:3px 0}
+.star{color:#ffcc00;font-size:13px}
+.btn{background:#ff2a6d;color:#fff;border:none;padding:7px 14px;border-radius:20px;margin-top:6px;font-weight:700}
+.galeria{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tcard{background:#151515;border-radius:15px;overflow:hidden}
+.tcard img{width:100%;height:140px;object-fit:cover}
+.tinfo{padding:10px}
+.preco{color:#ff2a6d;font-weight:800}
+.dias{font-size:11px;color:#888}
+.btn2{width:100%;background:#fff;color:#000;border:none;padding:8px;border-radius:10px;margin-top:6px;font-weight:700}
+.modal{position:fixed;inset:0;background:#0a0a0a;z-index:99;overflow:auto;display:none;padding:20px}
+.modal.ativo{display:block}
+.fechar{font-size:32px;position:absolute;right:20px;top:10px}
 </style>
 </head>
 <body>
-<h1>ittoo</h1>
-<p>Seu app funcionou no PC 32 bits! 🎉</p>
-<button onclick="alert('ittoo funcionando!')">Entrar</button>
+<div class="header"><div class="logo">it<span>too</span></div><div style="font-size:12px;background:#1a1a1a;padding:6px 12px;border-radius:20px">Vitória, ES</div></div>
+<div class="search">🔍<input placeholder="Buscar: fine line, realismo..."></div>
+<div class="artistas">
+<div class="titulo">Tatuadores</div>
+<div class="card" onclick="abrir('Lia Emerick')">
+<img class="foto" src="https://i.pravatar.cc/100?img=5">
+<div><div class="nome">Lia Emerick • Fine Line</div><div class="espec">8 anos • Minimalista e floral</div><div class="star">★ 4.9 (127 avaliações)</div><button class="btn">Ver galeria</button></div>
+</div>
+<div class="card" onclick="abrir('Kayo Realismo')">
+<img class="foto" src="https://i.pravatar.cc/100?img=8">
+<div><div class="nome">Kayo • Realismo</div><div class="espec">12 anos • Preto e cinza</div><div class="star">★ 5.0 (89 avaliações)</div><button class="btn">Ver galeria</button></div>
+</div>
+<div class="titulo">Flash tattoos</div>
+<div class="galeria">
+<div class="tcard"><img src="https://picsum.photos/300/300?1"><div class="tinfo"><div style="font-size:13px">Coração minimalista</div><div class="preco">R$ 250</div><div class="dias">Seg, Qua, Sex • 14h às 19h</div><button class="btn2" onclick="zap()">Agendar</button></div></div>
+<div class="tcard"><img src="https://picsum.photos/300/300?2"><div class="tinfo"><div style="font-size:13px">Dragão oriental</div><div class="preco">R$ 600</div><div class="dias">Ter, Qui • 10h às 18h</div><button class="btn2" onclick="zap()">Agendar</button></div></div>
+<div class="tcard"><img src="https://picsum.photos/300/300?3"><div class="tinfo"><div style="font-size:13px">Flor fine line</div><div class="preco">R$ 180</div><div class="dias">Hoje • 17h disponível</div><button class="btn2" onclick="zap()">Agendar</button></div></div>
+<div class="tcard"><img src="https://picsum.photos/300/300?4"><div class="tinfo"><div style="font-size:13px">Nome personalizado</div><div class="preco">R$ 350</div><div class="dias">Amanhã • 15h</div><button class="btn2" onclick="zap()">Agendar</button></div></div>
+</div>
+</div>
+<div class="modal" id="modal"><div class="fechar" onclick="fechar()">×</div><h2 id="nart" style="margin-top:40px">Lia Emerick</h2><p style="color:#888;margin:10px 0;font-size:14px">Estúdio Jardim da Penha • 8 anos de experiência. Especialista em fine line e floral.</p><div style="background:#151515;padding:15px;border-radius:15px;margin:15px 0"><b>Avaliações</b><div style="font-size:13px;margin-top:8px;color:#ccc">"Traço perfeito!" - Ana ★★★★★</div><div style="font-size:13px;margin-top:5px;color:#ccc">"Super atenciosa" - João ★★★★★</div></div><button class="btn" onclick="zap()" style="width:100%;padding:15px">Agendar no WhatsApp</button></div>
+<script>
+function abrir(n){document.getElementById('modal').classList.add('ativo');document.getElementById('nart').innerText=n}
+function fechar(){document.getElementById('modal').classList.remove('ativo')}
+function zap(){let nome=prompt('Seu nome?');if(nome){alert('Boa '+nome+'! Indo pro WhatsApp do tatuador');window.open('https://wa.me/5527999999999?text=Olá, vim pelo ittoo e quero tatuar!')}}
+</script>
 </body>
 </html>
